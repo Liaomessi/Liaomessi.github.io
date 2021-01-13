@@ -64,7 +64,7 @@ ga_domain: yoursite
 
 # Sidebar settings
 sidebar: true                       # whether or not using Sidebar.
-sidebar-about-description: "Learn and live!"
+sidebar-about-description: "Learn and live !"
 sidebar-avatar: /img/avatar/ironman.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
   - featured-tags
@@ -199,9 +199,9 @@ data-fixed: true
 # data-autoplay:
 
 # Reward
-reward: false
+reward: true
 reward_comment: 赞赏一下
-wechatpay: wechatpay_url
+wechatpay: wxp://f2f0wmZuBEFcRSeBIgsrw13oCMeYObRSRytI
 alipay: alipay_url
 
 # Share
@@ -226,5 +226,5 @@ sitemap:
 # branch: master
 deploy:
   type: git
-  repository: https://github.com/Liaomessi/Liaomessi.github.io.git
+  repository: git@github.com:Liaomessi/Liaomessi.github.io.git
   branch: gh-pages
