@@ -3,6 +3,13 @@
 
 
     <url>
+        <loc>http://www.Liaomessi.github.io/tags/nginx/</loc>
+        <lastmod>2021-01-25T11:57:23.028Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://www.Liaomessi.github.io/tags/本地调试/</loc>
         <lastmod>2021-01-20T14:27:07.041Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -12,13 +19,6 @@
     <url>
         <loc>http://www.Liaomessi.github.io/tags/微信登录/</loc>
         <lastmod>2021-01-20T14:27:07.041Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://www.Liaomessi.github.io/tags/nginx/</loc>
-        <lastmod>2021-01-20T14:25:08.768Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
