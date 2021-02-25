@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          nginx系列(一) 配置SSL证书 - 杨青波 | Blog
+          git的进阶指南(git cherry-pick) - 杨青波 | Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.Liaomessi.github.io/article/nginx1/">
+    <link rel="canonical" href="http://www.Liaomessi.github.io/article/git-advanced-guide/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,14 +88,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#nginx" title="nginx">nginx</a>
+                              <a class="tag" href="/tags/#git" title="git">git</a>
+                            
+                              <a class="tag" href="/tags/#git进阶" title="git进阶">git进阶</a>
+                            
+                              <a class="tag" href="/tags/#git cherry-pick" title="git cherry-pick">git cherry-pick</a>
                             
                         </div>
-                        <h1>nginx系列(一) 配置SSL证书</h1>
+                        <h1>git的进阶指南(git cherry-pick)</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨青波 on
-                            2021-01-11
+                            2021-02-01
                         </span>
                     </div>
                 
@@ -212,25 +216,81 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="1-安装证书全流程">1. 安装证书全流程</span></h2>
-<img src="/article/nginx1/image-20201106211115329.png" title="安装证书流程图">
-<h3><span id="11-下载证书压缩包并解压生成证书的key和pem">1.1. 下载证书压缩包并解压，生成证书的key和pem</span></h3>
+                <h2><span id="1-关于-git-cherry-pick-的含义和适用场景">1. 关于 git cherry-pick 的含义和适用场景</span></h2>
+<h3><span id="11-cherry-pick的简介">1.1. cherry-pick的简介</span></h3>
+<p>cherry-pick (捡樱桃)，顾名思义:是在一堆樱桃（commit）中挑选出自己想要的樱桃（commit）。</p>
+<h3><span id="12-cherry-pick的功能">1.2. cherry-pick的功能</span></h3>
+<p>cherry-pick 的功能：在某一个分支中的commit中选出一个或多个commit提交到另一个分支。</p>
+<h3><span id="13-cherry-pick的使用场景">1.3. cherry-pick的使用场景</span></h3>
+<p>cherry-pick 的使用场景： 比如我们从master分支切出来一个feature分支用于开发新的功能，而在开发这个新功能的时候顺便改了几个bug，相信这种顺便改bug的情景应该很常见吧，哈哈哈。这就有个问题了，我们现在并没有打算把这个feature给合进master分支，但是我们希望把我们顺手改的几个bug给合进master里面，这时候我们就可以使用cherry-pick将指定的commit给提交到master分支中去。</p>
+<h3><span id="14-cherry-pick的副作用个人理解">1.4. cherry-pick的副作用(个人理解)</span></h3>
+<p>使用cherry-pick 会在两个分支提交相同的内容，但是生成不同的commitId，这样在后续进行merge分支的时候，对于cherry-pick提交的commit内容依然会在PR中展示出来，给人带来疑惑（两个分支都有这段代码，但是PR中还是会存在这段代码，这就是commitId不同导致的）。<br>
+所以<strong>cherry-pick 只适用于commit已经混乱了，无法生成一个纯净的PR时使用，它不应该被大范围的使用，或者代替PR的功能之类的。</strong></p>
+<h2><span id="2-git-cherry-pick-官方文档介绍">2. git cherry-pick 官方文档介绍</span></h2>
+<h3><span id="git-cherry-pick-简介">git cherry-pick 简介</span></h3>
+<blockquote><p>git cherry-pick is a powerful command that enables arbitrary Git commits to be picked by reference and appended to the current working HEAD. Cherry picking is the act of picking a commit from a branch and applying it to another. git cherry-pick can be useful for undoing changes. For example, say a commit is accidently made to the wrong branch. You can switch to the correct branch and cherry-pick the commit to where it should belong.<br>
+git cherry-pick 是一个强大的命令，它允许引用任意Git提交将其提交到当前分支HEAD上。Cherry picking 是将commit从一个分支应用到另一个分支的操作。git cherry-pick 对撤销更改很有用。比如：一个commit意外提交到错误的分支，你可以使用cherry-pick将这个commit提交到正确的分支上。</p>
+<footer><strong>@Docs-</strong><cite><a href="https://www.atlassian.com/git/tutorials/cherry-pick" target="_blank" rel="noopener">www.atlassian.com/git/tutorials/cherry-pick</a></cite></footer></blockquote>
+<h3><span id="git-cherry-pick-使用场景">git cherry-pick 使用场景</span></h3>
+<blockquote><p>git cherry-pick is a useful tool but not always a best practice. Cherry picking can cause duplicate commits and many scenarios where cherry picking would work, traditional merges are preferred instead. With that said git cherry-pick is a handy tool for a few scenarios…<br>
+git cherry-pick是一个有用的工具，但并不总是最佳实践。cherry-pick会导致重复提交，并且在很多情况下cherry-pick会起作用，然而传统的merge还是更合适。有了这个，git cherry-pick在某些情况下是一个方便的工具…</p>
+<footer><strong>@Docs-</strong><cite><a href="https://www.atlassian.com/git/tutorials/cherry-pick" target="_blank" rel="noopener">www.atlassian.com/git/tutorials/cherry-pick</a></cite></footer></blockquote>
 <ul>
-<li>如下图是我在阿里云的证书，点击下载。</li>
+<li>团队合作（个人感觉这种场景比较少）</li>
 </ul>
-<img src="/article/nginx1/image-20201106212028665.png" title="阿里云证书">
+<blockquote><p>Often times a team will find individual members working in or around the same code. Maybe a new product feature has a backend and frontend component. There may be some shared code between to two product sectors. Maybe the backend developer creates a data structure that the frontend will also need to utilize. The frontend developer could use git cherry-pick to pick the commit in which this hypothetical data structure was created. This pick would enable the frontend developer to continue progress on their side of the project.<br>
+通常一个团队会发现在相同代码中或周围工作的单个成员。也许新产品功能具有后端和前端组件。两个产品部门之间可能存在一些共享代码。后端开发人员可能会创建前端也需要利用的数据结构。前端开发人员可以使用git cherry-pick来选择在其中创建此假设数据结构的提交。这种选择将使前端开发人员能够继续他们的项目进度。</p>
+<footer><strong>@Docs-</strong><cite><a href="https://www.atlassian.com/git/tutorials/cherry-pick" target="_blank" rel="noopener">www.atlassian.com/git/tutorials/cherry-pick</a></cite></footer></blockquote>
 <ul>
-<li>选择你需要的类型，我使用nginx，下载了nginx的版本。</li>
+<li>bug快速修复</li>
 </ul>
-<img src="/article/nginx1/image-20201106212102055.png" title="nginx证书">
+<blockquote><p>When a bug is discovered it is important to deliver a fix to end users as quickly as possible. For an example scenario,say a developer has started work on a new feature. During that new feature development they identify a pre-existing bug. The developer creates an explicit commit patching this bug. This new patch commit can be cherry-picked directly to the master branch to fix the bug before it effects more users.<br>
+发现错误后，尽快将修补程序提供给最终用户非常重要。对于一个示例场景，例如开发人员已开始着手一项新功能。在进行新功能开发时，他们会识别出先前存在的错误。开发人员创建了一个明确的提交来修补此错误。可以将新提交的补丁直接挑选到master分支上，以在影响更多用户之前修复该错误。</p>
+<footer><strong>@Docs-</strong><cite><a href="https://www.atlassian.com/git/tutorials/cherry-pick" target="_blank" rel="noopener">www.atlassian.com/git/tutorials/cherry-pick</a></cite></footer></blockquote>
 <ul>
-<li>解压证书压缩包，生成key和 pem，如下图所示。上传至服务器即可，服务器路径可随意，记住路径即可。</li>
+<li>撤销更改并恢复丢失的提交</li>
 </ul>
-<img src="/article/nginx1/image-20201106212349144.png" title="证书上传服务器">
-<h3><span id="12-配置nginxconf使ssl证书生效">1.2. 配置nginx.conf使ssl证书生效</span></h3>
-<figure class="highlight xml"><figcaption><span>server &#123;	</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    listen 443 ssl;      #增加ssl访问支持</span><br><span class="line">    server_name  www.demo.com demo.com;</span><br><span class="line">    root         /demo/dict;</span><br><span class="line">    ssl_certificate $&#123;你的.pem文件的路径&#125;;   #将domain name.pem替换成您证书的文件名。</span><br><span class="line">    ssl_certificate_key $&#123;你的.key文件的路径&#125;;   #将domain name.key替换成您证书的密钥文件名。</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。</span><br><span class="line">    ssl_prefer_server_ciphers on;  </span><br><span class="line">    location / &#123;</span><br><span class="line">         root /demo/dict; </span><br><span class="line">         index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="13-配置http重写路由至https">1.3. 配置http重写路由至https</span></h3>
-<figure class="highlight xml"><figcaption><span>server&#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> listen       80;</span><br><span class="line"> server_name  www.demo.com demo.com;</span><br><span class="line"> rewrite ^(.*) https://$host$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote><p>Sometimes a feature branch may go stale and not get merged into master. Sometimes a pull request might get closed without merging. Git never loses those commits and through commands like git log and git reflog they can be found and cherry picked back to life.<br>
+有时，功能分支可能会过时并且无法合并到master中。有时，拉取请求可能会在不合并的情况下关闭。 Git从不丢失那些提交，通过git log和git reflog之类的命令，它们可以被找到，并且重拾生命。</p>
+<footer><strong>@Docs-</strong><cite><a href="https://www.atlassian.com/git/tutorials/cherry-pick" target="_blank" rel="noopener">www.atlassian.com/git/tutorials/cherry-pick</a></cite></footer></blockquote>
+<h2><span id="3-示例演示">3. 示例演示</span></h2>
+<p>以下我创建一个新的仓库用于演示cherry-pick的使用场景：<a href="https://github.com/Liaomessi/git-advanced-guide" target="_blank" rel="noopener">https://github.com/Liaomessi/git-advanced-guide</a><br>
+如果你是一个git新手的话，可以跟着下面的步骤走，你一定会有所收获，并对cherry-pick有所理解</p>
+<ol>
+<li>
+<p>首先，我们fork这个 <code>https://github.com/Liaomessi/git-advanced-guide</code> 这个仓库,可以看到我们的github已经有了这个仓库<br>
+<code>git fork https://github.com/Liaomessi/git-advanced-guide</code></p>
+</li>
+<li>
+<p>然后我们按照传统（git）惯例，git clone下来这个仓库，这时这个仓库有两个分支 main、feature<br>
+<code>git clone</code> <s><a href="https://github.com/Liaomessi/git-advanced-guide" target="_blank" rel="noopener">https://github.com/Liaomessi/git-advanced-guide</a></s> ${这里填你自己fork过来的仓库}</p>
+</li>
+<li>
+<p>我们切换到feature分支，<a href="http://xn--feature-dg5kj40jfyn3ma.md" target="_blank" rel="noopener">新建文件feature.md</a><br>
+添加一行内容：<code>this is feature1</code>, 然后<code>git commit -m 'add feature1'</code>,<br>
+再添加一行内容： <code>this is feature2</code>, 然后<code>git commit -m 'add feature2'</code>,<br>
+这里我们已经在feature分支提交了两次代码，然后假设我们突然发现main分支的代码有问题，然后顺手就在当前分支把main分支的bug给修了后又开心的写我们的新feature。下面我们模拟这个场景：</p>
+</li>
+<li>
+<p>在main.md文件中添加一行内容：<code>this is bug fix</code>, 然后<code>git commit -m 'fix bug1'</code></p>
+</li>
+<li>
+<p>修完bug我们接着写新feature，再在feature.md添加一行内容：<code>this is feature3</code>,然后<code>git commit -m 'add feature3'</code><br>
+<s>好家伙，我大意了，没有切出一个新分支去修bug，给我把commit搞混乱了，当时流眼泪了，捂着胯，说年轻人你不讲git。</s><br>
+查看commit日志，<code>git log --oneline</code>现在我们feature分支中有了以下四个commit</p>
+</li>
+</ol>
+<img src="/article/git-advanced-guide/commit_log.png" title="commit历史">
+<ol start="6">
+<li>
+<p><code>git checkout main</code>切换分支到main，<code>git cherry-pick 3819196</code>，再<code>git push</code>就将fix bug1这个commit提交到main分支了。</p>
+</li>
+<li>
+<p>可能在开发中由于commit的内容不纯净会导致冲突，和正常merge代码一样解决冲突在commit就行了。</p>
+</li>
+</ol>
+<h2><span id="4-总结">4. 总结</span></h2>
+<p>git cherry-pick 是一个方便且强大的命令，在有些场景下挺有用。但是不应该使用 git cherry-pick 去替代 git merge 和 git rebase。使用 git cherry-pick 需要借助 git log 查找对应的提交。</p>
 
 
 
@@ -238,10 +298,10 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/wechat-open-api/" data-toggle="tooltip" data-placement="top" title="如何本地调试微信登录">&larr; Previous Post</a>
-                        </li>
                     
+                        <li class="next">
+                            <a href="/article/wechat-open-api/" data-toggle="tooltip" data-placement="top" title="如何本地调试微信登录">Next Post &rarr;</a>
+                        </li>
                     
                 </ul>
 
@@ -313,7 +373,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="1-&#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;">1. &#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="11-&#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem">1.1. &#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#xFF0C;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="12-&#x914D;&#x7F6E;nginxconf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;">1.2. &#x914D;&#x7F6E;nginx.conf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="13-&#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https">1.3. &#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https</span></span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="1-&#x5173;&#x4E8E;-git-cherry-pick-&#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;">1. &#x5173;&#x4E8E; git cherry-pick &#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="11-cherry-pick&#x7684;&#x7B80;&#x4ECB;">1.1. cherry-pick&#x7684;&#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="12-cherry-pick&#x7684;&#x529F;&#x80FD;">1.2. cherry-pick&#x7684;&#x529F;&#x80FD;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="13-cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;">1.3. cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text"><span id="14-cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;">1.4. cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;(&#x4E2A;&#x4EBA;&#x7406;&#x89E3;)</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="2-git-cherry-pick-&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4ECB;&#x7ECD;">2. git cherry-pick &#x5B98;&#x65B9;&#x6587;&#x6863;&#x4ECB;&#x7ECD;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x7B80;&#x4ECB;">git cherry-pick &#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x4F7F;&#x7528;&#x573A;&#x666F;">git cherry-pick &#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="3-&#x793A;&#x4F8B;&#x6F14;&#x793A;">3. &#x793A;&#x4F8B;&#x6F14;&#x793A;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><span id="4-&#x603B;&#x7ED3;">4. &#x603B;&#x7ED3;</span></span></a></li></ol>
         
         </div>
       </aside>
@@ -333,7 +393,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#nginx" title="nginx">nginx</a>
+                          <a class="tag" href="/tags/#git" title="git">git</a>
+                        
+                          <a class="tag" href="/tags/#git进阶" title="git进阶">git进阶</a>
+                        
+                          <a class="tag" href="/tags/#git cherry-pick" title="git cherry-pick">git cherry-pick</a>
                         
                     </div>
                 </section>
