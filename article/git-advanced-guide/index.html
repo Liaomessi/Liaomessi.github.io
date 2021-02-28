@@ -146,14 +146,14 @@
 
                         
                         <li>
-                            <a href="/about/">About</a>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
+                            <a href="/about/">About</a>
                         </li>
                         
                     
@@ -226,7 +226,7 @@
 <h3><span id="14-cherry-pick的副作用个人理解">1.4. cherry-pick的副作用(个人理解)</span></h3>
 <p>使用cherry-pick 会在两个分支提交相同的内容，但是生成不同的commitId，这样在后续进行merge分支的时候，对于cherry-pick提交的commit内容依然会在PR中展示出来，给人带来疑惑（两个分支都有这段代码，但是PR中还是会存在这段代码，这就是commitId不同导致的）。<br>
 所以<strong>cherry-pick 只适用于commit已经混乱了，无法生成一个纯净的PR时使用，它不应该被大范围的使用，或者代替PR的功能之类的。</strong></p>
-<h2><span id="2-git-cherry-pick-官方文档介绍">2. git cherry-pick 官方文档介绍</span></h2>
+<h2><span id="2-git-cherry-pick-文档介绍-学习git推荐这个教程图文详细可能比官网更容易理解">2. git cherry-pick 文档介绍 (学习git推荐这个教程（图文详细），可能比官网更容易理解)</span></h2>
 <h3><span id="git-cherry-pick-简介">git cherry-pick 简介</span></h3>
 <blockquote><p>git cherry-pick is a powerful command that enables arbitrary Git commits to be picked by reference and appended to the current working HEAD. Cherry picking is the act of picking a commit from a branch and applying it to another. git cherry-pick can be useful for undoing changes. For example, say a commit is accidently made to the wrong branch. You can switch to the correct branch and cherry-pick the commit to where it should belong.<br>
 git cherry-pick 是一个强大的命令，它允许引用任意Git提交将其提交到当前分支HEAD上。Cherry picking 是将commit从一个分支应用到另一个分支的操作。git cherry-pick 对撤销更改很有用。比如：一个commit意外提交到错误的分支，你可以使用cherry-pick将这个commit提交到正确的分支上。</p>
@@ -373,7 +373,7 @@ git cherry-pick是一个有用的工具，但并不总是最佳实践。cherry-p
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="1-&#x5173;&#x4E8E;-git-cherry-pick-&#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;">1. &#x5173;&#x4E8E; git cherry-pick &#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="11-cherry-pick&#x7684;&#x7B80;&#x4ECB;">1.1. cherry-pick&#x7684;&#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="12-cherry-pick&#x7684;&#x529F;&#x80FD;">1.2. cherry-pick&#x7684;&#x529F;&#x80FD;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="13-cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;">1.3. cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text"><span id="14-cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;">1.4. cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;(&#x4E2A;&#x4EBA;&#x7406;&#x89E3;)</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="2-git-cherry-pick-&#x5B98;&#x65B9;&#x6587;&#x6863;&#x4ECB;&#x7ECD;">2. git cherry-pick &#x5B98;&#x65B9;&#x6587;&#x6863;&#x4ECB;&#x7ECD;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x7B80;&#x4ECB;">git cherry-pick &#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x4F7F;&#x7528;&#x573A;&#x666F;">git cherry-pick &#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="3-&#x793A;&#x4F8B;&#x6F14;&#x793A;">3. &#x793A;&#x4F8B;&#x6F14;&#x793A;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><span id="4-&#x603B;&#x7ED3;">4. &#x603B;&#x7ED3;</span></span></a></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="1-&#x5173;&#x4E8E;-git-cherry-pick-&#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;">1. &#x5173;&#x4E8E; git cherry-pick &#x7684;&#x542B;&#x4E49;&#x548C;&#x9002;&#x7528;&#x573A;&#x666F;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="11-cherry-pick&#x7684;&#x7B80;&#x4ECB;">1.1. cherry-pick&#x7684;&#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="12-cherry-pick&#x7684;&#x529F;&#x80FD;">1.2. cherry-pick&#x7684;&#x529F;&#x80FD;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="13-cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;">1.3. cherry-pick&#x7684;&#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text"><span id="14-cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;&#x4E2A;&#x4EBA;&#x7406;&#x89E3;">1.4. cherry-pick&#x7684;&#x526F;&#x4F5C;&#x7528;(&#x4E2A;&#x4EBA;&#x7406;&#x89E3;)</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="2-git-cherry-pick-&#x6587;&#x6863;&#x4ECB;&#x7ECD;-&#x5B66;&#x4E60;git&#x63A8;&#x8350;&#x8FD9;&#x4E2A;&#x6559;&#x7A0B;&#x56FE;&#x6587;&#x8BE6;&#x7EC6;&#x53EF;&#x80FD;&#x6BD4;&#x5B98;&#x7F51;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;">2. git cherry-pick &#x6587;&#x6863;&#x4ECB;&#x7ECD; (&#x5B66;&#x4E60;git&#x63A8;&#x8350;&#x8FD9;&#x4E2A;&#x6559;&#x7A0B;&#xFF08;&#x56FE;&#x6587;&#x8BE6;&#x7EC6;&#xFF09;&#xFF0C;&#x53EF;&#x80FD;&#x6BD4;&#x5B98;&#x7F51;&#x66F4;&#x5BB9;&#x6613;&#x7406;&#x89E3;)</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.1.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x7B80;&#x4ECB;">git cherry-pick &#x7B80;&#x4ECB;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.2.</span> <span class="toc-nav-text"><span id="git-cherry-pick-&#x4F7F;&#x7528;&#x573A;&#x666F;">git cherry-pick &#x4F7F;&#x7528;&#x573A;&#x666F;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="3-&#x793A;&#x4F8B;&#x6F14;&#x793A;">3. &#x793A;&#x4F8B;&#x6F14;&#x793A;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><span id="4-&#x603B;&#x7ED3;">4. &#x603B;&#x7ED3;</span></span></a></li></ol>
         
         </div>
       </aside>
@@ -484,15 +484,15 @@ git cherry-pick是一个有用的工具，但并不总是最佳实践。cherry-p
 <script type="text/javascript" src="/js/smoothscroll.js"></script>
 <script>
         $('#toc').on('click','a',function(a){
-            // var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
-            // console.log(window.navigator.userAgent,isChrome)
-                // if(isChrome) {
-                    // console.log(a.currentTarget.outerHTML);
-                    // console.log($(a.currentTarget).attr("href"));
+             var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+             console.log(window.navigator.userAgent,isChrome)
+                 if(isChrome) {
+                     console.log(a.currentTarget.outerHTML);
+                     console.log($(a.currentTarget).attr("href"));
                     //跳转到指定锚点
-                    // document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
-                    document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
-                // }
+                     document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                   // document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                 }
         })
 </script>
 
