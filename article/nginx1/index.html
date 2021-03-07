@@ -212,9 +212,9 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h2><span id="1-安装证书全流程">1. 安装证书全流程</span></h2>
+                <h2><span id="安装证书全流程">安装证书全流程</span></h2>
 <img src="/article/nginx1/image-20201106211115329.png" title="安装证书流程图">
-<h3><span id="11-下载证书压缩包并解压生成证书的key和pem">1.1. 下载证书压缩包并解压，生成证书的key和pem</span></h3>
+<h3><span id="下载证书压缩包并解压生成证书的key和pem">下载证书压缩包并解压，生成证书的key和pem</span></h3>
 <ul>
 <li>如下图是我在阿里云的证书，点击下载。</li>
 </ul>
@@ -227,9 +227,9 @@
 <li>解压证书压缩包，生成key和 pem，如下图所示。上传至服务器即可，服务器路径可随意，记住路径即可。</li>
 </ul>
 <img src="/article/nginx1/image-20201106212349144.png" title="证书上传服务器">
-<h3><span id="12-配置nginxconf使ssl证书生效">1.2. 配置nginx.conf使ssl证书生效</span></h3>
+<h3><span id="配置nginxconf使ssl证书生效">配置nginx.conf使ssl证书生效</span></h3>
 <figure class="highlight xml"><figcaption><span>server &#123;	</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">    listen 443 ssl;      #增加ssl访问支持</span><br><span class="line">    server_name  www.demo.com demo.com;</span><br><span class="line">    root         /demo/dict;</span><br><span class="line">    ssl_certificate $&#123;你的.pem文件的路径&#125;;   #将domain name.pem替换成您证书的文件名。</span><br><span class="line">    ssl_certificate_key $&#123;你的.key文件的路径&#125;;   #将domain name.key替换成您证书的密钥文件名。</span><br><span class="line">    ssl_session_timeout 5m;</span><br><span class="line">    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;  #使用此加密套件。</span><br><span class="line">    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;   #使用该协议进行配置。</span><br><span class="line">    ssl_prefer_server_ciphers on;  </span><br><span class="line">    location / &#123;</span><br><span class="line">         root /demo/dict; </span><br><span class="line">         index index.html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3><span id="13-配置http重写路由至https">1.3. 配置http重写路由至https</span></h3>
+<h3><span id="配置http重写路由至https">配置http重写路由至https</span></h3>
 <figure class="highlight xml"><figcaption><span>server&#123;</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> listen       80;</span><br><span class="line"> server_name  www.demo.com demo.com;</span><br><span class="line"> rewrite ^(.*) https://$host$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -313,7 +313,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="1-&#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;">1. &#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="11-&#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem">1.1. &#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#xFF0C;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="12-&#x914D;&#x7F6E;nginxconf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;">1.2. &#x914D;&#x7F6E;nginx.conf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="13-&#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https">1.3. &#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https</span></span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="&#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;">&#x5B89;&#x88C5;&#x8BC1;&#x4E66;&#x5168;&#x6D41;&#x7A0B;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="&#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem">&#x4E0B;&#x8F7D;&#x8BC1;&#x4E66;&#x538B;&#x7F29;&#x5305;&#x5E76;&#x89E3;&#x538B;&#xFF0C;&#x751F;&#x6210;&#x8BC1;&#x4E66;&#x7684;key&#x548C;pem</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="&#x914D;&#x7F6E;nginxconf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;">&#x914D;&#x7F6E;nginx.conf&#x4F7F;ssl&#x8BC1;&#x4E66;&#x751F;&#x6548;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="&#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https">&#x914D;&#x7F6E;http&#x91CD;&#x5199;&#x8DEF;&#x7531;&#x81F3;https</span></span></a></li></ol></li></ol>
         
         </div>
       </aside>
