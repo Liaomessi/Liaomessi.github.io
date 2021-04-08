@@ -48,18 +48,12 @@ anchorjs: true                          # if you want to customize anchor. check
 # Disqus settings
 #disqus_username: your-disqus-ID
 
-# Duoshuo settings
-# duoshuo_username: kaijun
-# Share component is depend on Comment so we can NOT use share only.
-#duoshuo_share: true                     # set to false if you want to use Comment without Sharing
-
-
 # Analytics settings
 #Baidu Analytics
-ba_track_id: xxx
+ba_track_id: ac03deda110440f0c7a9107f73d03f79
 # Google Analytics
-ga_track_id: 'UA-XXXXXXXX-X'          # Format: UA-xxxxxx-xx
-ga_domain: yoursite
+#ga_track_id: 'UA-XXXXXXXX-X'          # Format: UA-xxxxxx-xx
+#ga_domain: yoursite
 
 
 # Sidebar settings
@@ -88,14 +82,14 @@ featured-condition-size: 0              # A tag will be featured if the size of 
 
 ## Friends
 friends: [
-    {
-      title: "CSDN Blog 杨青波",
-      href: "https://blog.csdn.net/You_are_my_Mr_Right"
-    },
-    {
-      title: "图里图气网",
-      href: "https://www.tultuq.com"
-    }
+{
+  title: "CSDN Blog 杨青波",
+  href: "https://blog.csdn.net/You_are_my_Mr_Right"
+},
+{
+  title: "图里图气网",
+  href: "https://www.tultuq.com"
+}
 ]
 
 #Custom Setting End
@@ -111,6 +105,14 @@ category_dir: categories
 code_dir: downloads/code
 i18n_dir: :lang
 skip_render:
+
+post_wordcount:
+  item_text: true  # 文本显示
+  wordcount: true  # 单篇 字数统计
+  min2read: true   # 单篇 阅读时长
+  totalcount: true  # 网站 字数统计
+  # 该post_wordcount的所有设置另起一行显示
+  separated_meta: true
 
 # Writing
 new_post_name: :title.md # File name of new posts
@@ -190,8 +192,8 @@ markdown:
 
 # MeingJS support for Aplayer
 # reference: https://github.com/metowolf/MetingJS & https://github.com/MoePlayer/APlayer
-metingjs: false
-data-id: 2423410161
+metingjs: true
+data-id: 3150640120
 data-server: netease
 data-type: playlist
 data-fixed: true
@@ -201,9 +203,12 @@ data-fixed: true
 # Reward
 reward: true
 reward_comment: 赞赏一下
-wechatpay: wxp://f2f0wmZuBEFcRSeBIgsrw13oCMeYObRSRytI
-alipay: alipay_url
+wechatpay: /img/pay_url/wechat_payment.jpg
+alipay: /img/pay_url/ali_payment.jpg
 
+# Livere评论系统
+Livere:
+livere_uid: MTAyMC81MjQzNC8yODkxMg==
 # Share
 # Reference: https://github.com/overtrue/share.js
 share: true
