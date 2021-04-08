@@ -3,29 +3,29 @@
 
 
     <url>
-        <loc>http://www.Liaomessi.github.io/tags/windows/</loc>
-        <lastmod>2021-04-07T15:00:59.393Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://www.Liaomessi.github.io/tags/git/</loc>
-        <lastmod>2021-04-07T15:00:59.393Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://www.Liaomessi.github.io/tags/git-cherry-pick/</loc>
-        <lastmod>2021-03-07T04:40:38.721Z</lastmod>
+        <lastmod>2021-04-08T11:52:08.137Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://www.Liaomessi.github.io/tags/git进阶/</loc>
-        <lastmod>2021-03-07T04:40:38.721Z</lastmod>
+        <lastmod>2021-04-08T11:52:08.137Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.Liaomessi.github.io/tags/git/</loc>
+        <lastmod>2021-04-08T11:52:08.137Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://www.Liaomessi.github.io/tags/windows/</loc>
+        <lastmod>2021-04-07T15:00:59.393Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
