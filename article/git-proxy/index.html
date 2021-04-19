@@ -14,7 +14,7 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          git的进阶指南(Windows下配置git代理) - 杨青波 | Blog
+          git的进阶指南(配置git代理) - 杨青波 | Blog
         
     </title>
 
@@ -93,7 +93,7 @@
                               <a class="tag" href="/tags/#windows" title="windows">windows</a>
                             
                         </div>
-                        <h1>git的进阶指南(Windows下配置git代理)</h1>
+                        <h1>git的进阶指南(配置git代理)</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨青波 on
@@ -217,8 +217,8 @@
                 <h1><span id="windows下的git代理配置">Windows下的git代理配置</span></h1>
 <p>由于近些年国内访问github速度慢且很不稳定，所以作为一名合格的程序员你一定需要一个科学梯子，这是本次教程的一个前提。</p>
 <h2><span id="关于github">关于github</span></h2>
-<p>相信只要你有一个梯子你就可以给访问github加速，但是对于git clone 很多人表示龟速，以下从两个角度介绍一下Windows下如何给git clone加速</p>
-<h2><span id="git-clone的代理配置">git clone的代理配置</span></h2>
+<p>相信只要你有一个梯子你就可以给访问github加速，但是对于git clone、 push、 pull 很多人表示龟速，以下从两个角度介绍一下Windows下如何给git 命令加速</p>
+<h2><span id="git的代理配置">git的代理配置</span></h2>
 <p>对于git clone我们常用的有两种方式可以clone下项目，https方式和ssh方式，先简单介绍一下这两种方式的不同处：</p>
 <ol>
 <li>https方式使用用户名／密码授权，优点是可用性强，方便，缺点是速度慢，每次推送都需要输入口令。</li>
@@ -233,11 +233,11 @@
 <h3><span id="关于使用ssh方式clone的配置">关于使用ssh方式clone的配置</span></h3>
 <p>ssh方式的clone配置比较简单，你只需要在本用户的.ssh目录下（和你id_rsa.pub同级目录）创建一个config文件(不要有文件扩展名)，将代理信息配置进去即可，配置如下：</p>
 <figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">  User git</span><br><span class="line">  Port 22</span><br><span class="line">  Hostname github.com</span><br><span class="line">  IdentityFile "C:\Users\MRqby\.ssh\id_rsa"</span><br><span class="line">  ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p</span><br><span class="line">  TCPKeepAlive yes</span><br><span class="line"></span><br><span class="line">Host ssh.github.com</span><br><span class="line">  User git</span><br><span class="line">  Port 443</span><br><span class="line">  Hostname ssh.github.com</span><br><span class="line">  IdentityFile "C:\Users\MRqby\.ssh\id_rsa"</span><br><span class="line">  ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p</span><br><span class="line">  TCPKeepAlive yes</span><br></pre></td></tr></table></figure>
-<p>使用mac和linux的同学应该看着很熟悉了，这个打家劫舍（配置跳板机啥的）必备良药呀！<br>
+<p>使用mac和linux的同学应该看着很熟悉了，这个<s>打家劫舍</s>（配置跳板机啥的）必备良药呀！<br>
 这里再插一嘴，Stack Overflow等上面有些人告诉你了直接在git config配置ssl verify设为false，这显然不是个好解决方法啊，慎用。</p>
 <p>##结语<br>
 以上为Windows下配置git clone的代理全部内容，其实mac/linux上配置也是一样的，只是目录有些不同而已。<br>
-磨刀不误砍柴工，这些基础的配置是为了让我们对技术更加热情，更丝滑的使用gayhub（手动滑稽）。</p>
+磨刀不误砍柴工，这些基础的配置是为了让我们对技术更加热情，更丝滑的使用 <s>gayhub</s> github。</p>
 
 
 
@@ -320,7 +320,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;">Windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;github">&#x5173;&#x4E8E;github</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="git-clone&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;">git clone&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li></ol></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;">Windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;github">&#x5173;&#x4E8E;github</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="git&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;">git&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li></ol></li></ol></li></ol>
         
         </div>
       </aside>
