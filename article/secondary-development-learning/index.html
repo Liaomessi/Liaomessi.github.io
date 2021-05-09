@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="keyword"  content="">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          关于二次开发开源项目的理解(redash) - 杨青波 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://www.Liaomessi.github.io/article/secondary-development-learning/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#开源项目" title="开源项目">开源项目</a>
+                            
+                              <a class="tag" href="/tags/#二次开发" title="二次开发">二次开发</a>
+                            
+                              <a class="tag" href="/tags/#源码阅读" title="源码阅读">源码阅读</a>
+                            
+                        </div>
+                        <h1>关于二次开发开源项目的理解(redash)</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 杨青波 on
+                            2021-04-19
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">杨青波</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="关于二次开发的一些思考">关于二次开发的一些思考</span></h2>
+<p>很多同学因为想要对某些技术深耕，又或是因为面试会问去了解技术的底层原理之类的，但是很难坚持或是看不懂之类的。其实阅读源码，了解底层原理这东西最好还是结合实际情况来进行。比如你是一个Java Developer 但是你项目中并没有怎么深度使用elasticsearch但是你因为想要学的更多一点去自己阅读elasticsearch的源码，大概率你会坚持不下来，这主要是你压根没有使用场景，没有在做中体会这些源码的精妙设计和原理。如果非要阅读的话，我建议也是从实际角度出发，指定一个目标，比如成为elasticsearch的贡献者之类的明确目标，再细一点的目标也是可以的，比如修复某个issue，从实际角度出发你增加你的兴趣，而且也能体现出你阅读源码的作用，不然即使看完源码发现除了可能学到了一些开源框架的设计模式啥没学到，对技术的兴趣会打折的。<br>
+所以从实际角度出发，你要解决什么问题你就去了解什么东西，往往解决一个问题才是你学习的开始。</p>
+<h3><span id="为什么我们要二次开发redash">为什么我们要二次开发redash？</span></h3>
+<p>在程序员的职业生涯中总会碰到因为某些原因导致我们需要对开源框架进行二次开发，这时阅读源码并理解架构是我们能快速完成任务的前提。最近我参与了<a href="https://github.com/getredash/redash" target="_blank" rel="noopener">redash</a>这款开源框架的二次开发，主要是一些前端的定制化开发相关的内容。<br>
+在我们的整个大团队中基本上每个团队都会有一些spark job 的数据需要展示，而我们对redash本身提供的一些数据展示模型并不满意，也不能覆盖我们的所有使用场景，所以我们对redash进行了一些二次开发。</p>
+<h3><span id="redash是什么">redash是什么？</span></h3>
+<p><a href="https://github.com/getredash/redash" target="_blank" rel="noopener">redash</a>是一款可以连接到任何数据源，轻松实现可视化仪表板和共享数据的框架。它非常适合用来做数据驱动决策的数据分析和展示，并且使用起来比较方便，支持浏览器编辑各种SQL，NoSQL的脚本。</p>
+<h3><span id="关于redash的定制化widget的简述">关于redash的定制化widget的简述</span></h3>
+<p>在我们的使用场景中我们将redash页面通过iframe方式嵌入到我们的项目中，而嵌入的页面是个dashboard,每个dashboard中有多个widget,我们通过url传输一些参数，postMessage传输一些异步数据。<br>
+所以我以开发一种新的widget为目标来看，我要完成任务我就要了解以dashboard和widget组件相关的内容。然后阅读源码发现，这里其实就是一种工厂模式，在redash中定义了多种widget，我们只要选用不同类型的widget就能生成不同的报表。<br>
+这是个配置类，配置了所有已开发的widget，基本类似于使用一个map将所有widget给保存起来，key是widget名称，value则是整个widget的组件，我们使用widget只需要在UI上选中即可生成对应的报表。<br>
+这种设计UI组件的方式特别适合多场景多类型的组件开发，可以灵活的根据所选参数进行UI的组件的变更。参考这种设计方式，我们在项目中也多处运用到了这个模式，比如我们创建一些实验的时候要根据实验渠道展现不同的UI组件，以及我们不同渠道的实验需要展示不同的readout，都运用上了这种设计。</p>
+<p>以下是widget 的注册类，我选取了其中关键部分代码来简单分析一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line">import &#123; find, flatten, each &#125; from &quot;lodash&quot;;</span><br><span class="line">import PropTypes from &quot;prop-types&quot;;</span><br><span class="line"></span><br><span class="line">// 将所有的widget目录都引进来，主要就是两个个组件Renderer（用来展示查询出来的数据的） 和 Editor（用来配置展示的数据模型）</span><br><span class="line">import boxPlotVisualization from &quot;./box-plot&quot;;</span><br><span class="line">import chartVisualization from &quot;./chart&quot;;</span><br><span class="line">import choroplethVisualization from &quot;./choropleth&quot;;</span><br><span class="line">import cohortVisualization from &quot;./cohort&quot;;</span><br><span class="line">import counterVisualization from &quot;./counter&quot;;</span><br><span class="line">import detailsVisualization from &quot;./details&quot;;</span><br><span class="line">import funnelVisualization from &quot;./funnel&quot;;</span><br><span class="line">import mapVisualization from &quot;./map&quot;;</span><br><span class="line">import pivotVisualization from &quot;./pivot&quot;;</span><br><span class="line">import sankeyVisualization from &quot;./sankey&quot;;</span><br><span class="line">import sunburstVisualization from &quot;./sunburst&quot;;</span><br><span class="line">import tableVisualization from &quot;./table&quot;;</span><br><span class="line">import wordCloudVisualization from &quot;./word-cloud&quot;;</span><br><span class="line"></span><br><span class="line">type VisualizationConfig = &#123;</span><br><span class="line">  type: string;</span><br><span class="line">  name: string;</span><br><span class="line">  getOptions: (...args: any[]) =&gt; any;</span><br><span class="line">  isDefault?: boolean;</span><br><span class="line">  isDeprecated?: boolean;</span><br><span class="line">  Renderer: (...args: any[]) =&gt; any;</span><br><span class="line">  Editor?: (...args: any[]) =&gt; any;</span><br><span class="line">  autoHeight?: boolean;</span><br><span class="line">  defaultRows?: number;</span><br><span class="line">  defaultColumns?: number;</span><br><span class="line">  minRows?: number;</span><br><span class="line">  maxRows?: number;</span><br><span class="line">  minColumns?: number;</span><br><span class="line">  maxColumns?: number;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// @ts-expect-error ts-migrate(2322) FIXME: Type &apos;Requireable&lt;InferProps&lt;&#123; type: Validator&lt;str... Remove this comment to see the full error message</span><br><span class="line">const VisualizationConfig: PropTypes.Requireable&lt;VisualizationConfig&gt; = PropTypes.shape(&#123;</span><br><span class="line">  type: PropTypes.string.isRequired,</span><br><span class="line">  name: PropTypes.string.isRequired,</span><br><span class="line">  getOptions: PropTypes.func.isRequired,</span><br><span class="line">  isDefault: PropTypes.bool,</span><br><span class="line">  isDeprecated: PropTypes.bool,</span><br><span class="line">  Renderer: PropTypes.func.isRequired,</span><br><span class="line">  Editor: PropTypes.func,</span><br><span class="line">  // other config options</span><br><span class="line">  autoHeight: PropTypes.bool,</span><br><span class="line">  defaultRows: PropTypes.number,</span><br><span class="line">  defaultColumns: PropTypes.number,</span><br><span class="line">  minRows: PropTypes.number,</span><br><span class="line">  maxRows: PropTypes.number,</span><br><span class="line">  minColumns: PropTypes.number,</span><br><span class="line">  maxColumns: PropTypes.number,</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">const registeredVisualizations = &#123;&#125;;</span><br><span class="line"></span><br><span class="line">function validateVisualizationConfig(config: any) &#123;</span><br><span class="line">  const typeSpecs = &#123; config: VisualizationConfig &#125;;</span><br><span class="line">  const values = &#123; config &#125;;</span><br><span class="line">  PropTypes.checkPropTypes(typeSpecs, values, &quot;prop&quot;, &quot;registerVisualization&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function registerVisualization(config: any) &#123;</span><br><span class="line">  validateVisualizationConfig(config);</span><br><span class="line">  config = &#123;</span><br><span class="line">    Editor: () =&gt; null,</span><br><span class="line">    ...config,</span><br><span class="line">    isDefault: config.isDefault &amp;&amp; !config.isDeprecated,</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an &apos;any&apos; type because expre... Remove this comment to see the full error message</span><br><span class="line">  if (registeredVisualizations[config.type]) &#123;</span><br><span class="line">    throw new Error(`Visualization $&#123;config.type&#125; already registered.`);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  // @ts-expect-error ts-migrate(7053) FIXME: Element implicitly has an &apos;any&apos; type because expre... Remove this comment to see the full error message</span><br><span class="line">  registeredVisualizations[config.type] = config;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 这里将所有已经开发了的报表类型注册进去，后面就可以通过选取不同类型的widget来展示对应的widget的UI。</span><br><span class="line">each(</span><br><span class="line">  flatten([</span><br><span class="line">    boxPlotVisualization,</span><br><span class="line">    chartVisualization,</span><br><span class="line">    choroplethVisualization,</span><br><span class="line">    cohortVisualization,</span><br><span class="line">    counterVisualization,</span><br><span class="line">    detailsVisualization,</span><br><span class="line">    funnelVisualization,</span><br><span class="line">    mapVisualization,</span><br><span class="line">    pivotVisualization,</span><br><span class="line">    sankeyVisualization,</span><br><span class="line">    sunburstVisualization,</span><br><span class="line">    tableVisualization,</span><br><span class="line">    wordCloudVisualization,</span><br><span class="line">  ]),</span><br><span class="line">  registerVisualization</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">export default registeredVisualizations;</span><br></pre></td></tr></table></figure>
+<p>widget的代码就不贴了，就是两个组件Renderer和Editor，目录结构基本如下：</p>
+<img src="/article/secondary-development-learning/widget_dir.png" title="各种widget的目录">
+<h2><span id="关于我们生产实践中的redash使用">关于我们生产实践中的redash使用</span></h2>
+<p>由于数据原因，我们会出现一些数据查询结果为空，如果单纯的使用SQL来生成报表，那么我们有时候回出现部分dashboard没有数据，这会让用户疑惑，所以我们使用python脚本来生成查询的SQL，并且可以提供一个post_query来处理查询出的结果，如果一些查询结果不符合我们的期望，我们可以在post_query中来进行处理（没数据，或者数据为0之类的，我们要将它转换成用户友好的结果）。<br>
+redash支持使用Python脚本，以及URL请求等获取数据。<br>
+这里从官网撸了一张gif演示redash的强大数据分析能力,这个演示是最基本的SQL查询用法：</p>
+<img src="/article/secondary-development-learning/redash-anim.gif" title="redash演示">
+<h2><span id="结语">结语</span></h2>
+<p>一般来说，业务团队对开源框架的开发基本止于二次开发，基本上不会有多少新功能或者大量issue的修复。因为在做技术选型时会考虑到这个框架给我们带来的利弊权衡，如果有太多新feature和issue需要处理，大概率不会选取这个框架，而基于框架设计本身的二次开发扩展就没有那么耗时耗力了。但是不管是二次开发还是写一些新feature和修一些issue都是要对这个框架架构有个整体上的认知。<br>
+而对于中间件和基础架构团队来说，如果要对一个开源框架进行大量的feature开发和修复issue，那么基本上会涉及到多个团队以及一些法务和行政等部门的商议。需要考虑是不是要接着提交到开源社区，这个过程比较麻烦。<br>
+我们团队给clickhouse提的一个feature到现在还在交涉中。<br>
+<strong>往往解决一个问题才是学习的开始</strong></p>
+
+
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/git-proxy/" data-toggle="tooltip" data-placement="top" title="git的进阶指南(配置git代理)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="/img/pay_url/ali_payment.jpg"><b>支付宝打赏</b></span>
+                            <span class="wechat-code"> <img class="wechat-img" src="/img/pay_url/wechat_payment.jpg"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">赞赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>
+
+                <!-- require APlayer -->
+                
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+
+                <div class="aplayer"
+                    data-id="3150640120"
+                    data-server="netease"
+                    data-type="playlist"
+                    data-fixed="true" >
+                </div>
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+                    <!-- disqus 评论框 start -->
+                    <div class="comment">
+                        <div id="lv-container" data-id="city" data-uid="MTAyMC81MjQzNC8yODkxMg=="></div>
+                    </div>
+                    <!-- disqus 评论框 end -->
+                
+
+            </div>
+
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4E8C;&#x6B21;&#x5F00;&#x53D1;&#x7684;&#x4E00;&#x4E9B;&#x601D;&#x8003;">&#x5173;&#x4E8E;&#x4E8C;&#x6B21;&#x5F00;&#x53D1;&#x7684;&#x4E00;&#x4E9B;&#x601D;&#x8003;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x8981;&#x4E8C;&#x6B21;&#x5F00;&#x53D1;redash">&#x4E3A;&#x4EC0;&#x4E48;&#x6211;&#x4EEC;&#x8981;&#x4E8C;&#x6B21;&#x5F00;&#x53D1;redash&#xFF1F;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="redash&#x662F;&#x4EC0;&#x4E48;">redash&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;redash&#x7684;&#x5B9A;&#x5236;&#x5316;widget&#x7684;&#x7B80;&#x8FF0;">&#x5173;&#x4E8E;redash&#x7684;&#x5B9A;&#x5236;&#x5316;widget&#x7684;&#x7B80;&#x8FF0;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x6211;&#x4EEC;&#x751F;&#x4EA7;&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;redash&#x4F7F;&#x7528;">&#x5173;&#x4E8E;&#x6211;&#x4EEC;&#x751F;&#x4EA7;&#x5B9E;&#x8DF5;&#x4E2D;&#x7684;redash&#x4F7F;&#x7528;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="&#x7ED3;&#x8BED;">&#x7ED3;&#x8BED;</span></span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#开源项目" title="开源项目">开源项目</a>
+                        
+                          <a class="tag" href="/tags/#二次开发" title="二次开发">二次开发</a>
+                        
+                          <a class="tag" href="/tags/#源码阅读" title="源码阅读">源码阅读</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/You_are_my_Mr_Right" target="_blank">CSDN Blog 杨青波</a></li>
+                    
+                        <li><a href="https://www.tultuq.com" target="_blank">图里图气网</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <!-- 来必力City版公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- 来必力City版 公共JS代码 end -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+             var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+             console.log(window.navigator.userAgent,isChrome)
+                 if(isChrome) {
+                     console.log(a.currentTarget.outerHTML);
+                     console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                     document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                   // document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                 }
+        })
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Liaomessi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 杨青波 2021 
+                    <br>
+                    Theme by <a href="https://github.com/huweihuang">huweihuang</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://github.com/Liaomessi">杨青波</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.Liaomessi.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ac03deda110440f0c7a9107f73d03f79';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://www.Liaomessi.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -9,6 +9,14 @@
 
 
     <url>
+        <loc>http://www.Liaomessi.github.io/article/secondary-development-learning/</loc>
+        <lastmod>2021-05-09T03:25:19.377Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://www.Liaomessi.github.io/article/git-proxy/</loc>
         <lastmod>2021-04-19T12:54:13.883Z</lastmod>
         <changefreq>weekly</changefreq>
