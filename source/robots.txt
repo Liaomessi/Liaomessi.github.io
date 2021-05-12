@@ -4,6 +4,9 @@ Allow: /archive/
 Allow: /tags/
 Allow: /about/
 
+Sitemap: http://www.jeyzhang.com/sitemap.xml
+Sitemap: http://www.jeyzhang.com/baidusitemap.xml
+
 Disallow: /vendors/
 Disallow: /js/
 Disallow: /css/
