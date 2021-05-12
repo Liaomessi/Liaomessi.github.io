@@ -3,11 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: 杨青波
-subtitle: 个人博客
+title: 杨青波 | Blog
+subtitle: 杨青波的个人博客
 author: 杨青波
-language:
+language: zh-CN
 timezone:
+keywords: Web,Java,React,git,nginx # 博客关键字
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -22,9 +23,9 @@ permalink_defaults:
 
 # Site settings
 SEOTitle: 杨青波 | Blog
-email: e-mail_address
-description: ""
-keyword: ""
+email: MRqbyang@163.com
+description: "杨青波的个人博客"
+keyword: "Java,React,Git,Web,Nginx"
 header-img: /img/header_img/home.jpg
 article-img: /img/article_header/article_bg.jpg
 404-img: /img/header_img/404.png
