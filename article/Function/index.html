@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="杨青波的个人博客">
+    <meta name="keyword"  content="Java,React,Git,Web,Nginx">
+    <link rel="shortcut icon" href="/img/ironman-draw.png">
+    <!-- Place this tag in your head or just before your close body tag. -->
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>
+        
+          Java8 函数式接口Function大家族 - 杨青波 | Blog
+        
+    </title>
+
+    <link rel="canonical" href="http://www.Liaomessi.github.io/article/Function/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="/css/beantech.min.css">
+
+    <link rel="stylesheet" href="/css/donate.css">
+    
+    <!-- Pygments Highlight CSS -->
+    <link rel="stylesheet" href="/css/highlight.css">
+
+    <link rel="stylesheet" href="/css/widget.css">
+
+    <link rel="stylesheet" href="/css/rocket.css">
+
+    <link rel="stylesheet" href="/css/signature.css">
+
+    <link rel="stylesheet" href="/css/toc.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="https://cdn.staticfile.org/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+	<!-- Modified by Yu-Hsuan Yen -->
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        
+            background-image: url('/img/article_header/article_bg.jpg')
+            /*post*/
+        
+    }
+    
+</style>
+
+<header class="intro-header" >
+    <!-- Signature -->
+    <div id="signature">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                
+                    <div class="post-heading">
+                        <div class="tags">
+                            
+                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                            
+                              <a class="tag" href="/tags/#Function" title="Function">Function</a>
+                            
+                              <a class="tag" href="/tags/#Predicate" title="Predicate">Predicate</a>
+                            
+                              <a class="tag" href="/tags/#Consumer" title="Consumer">Consumer</a>
+                            
+                              <a class="tag" href="/tags/#Supplier" title="Supplier">Supplier</a>
+                            
+                        </div>
+                        <h1>Java8 函数式接口Function大家族</h1>
+                        <h2 class="subheading"></h2>
+                        <span class="meta">
+                            Posted by 杨青波 on
+                            2021-06-01
+                        </span>
+                    </div>
+                
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+	
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">杨青波 | Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+
+                    
+
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/about/">About</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+
+    <!-- Main Content -->
+    <!-- Modify by Yu-Hsuan Yen -->
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+                <h2><span id="关于java8-function-包中系列接口的简介">关于Java8 function 包中系列接口的简介</span></h2>
+<p>Java8 中在 java.util.function 包中定义了一系列的函数式接口，主要包含五大类：<br>
+- <code>Function</code>: 函数接口，主要作用是定义一个类似method的函数（用来代替匿名内部类最合适不过了），给定入参，返回出参，理论上以下四个function的功能都可以用Function接口实现，所以它是一种很综合全面的接口<br>
+- <code>Predicate</code>: 断言接口，主要作用是提供校验相关的功能，返回结果为boolean<br>
+- <code>Consumer</code>: 消费者模式接口， 主要是给定入参，消费入参，无返回结果集<br>
+- <code>Supplier</code>: 生产者模式接口，主要是产生结果，无入参，返回结果为产出<br>
+- <code>*Operator</code>: 计算模式接口，继承自Function，这里我们不详解它。主要是提供一些计算和转化功能，分为一元和二元计算，一元计算指给定一个入参，返回一个计算结果，二元计算指给定两个入参，返回一个计算结果<br>
+这里注意在function包中命名中带有 <strong>Bi</strong> 的说明这是一个二元计算，即接受两个参数，返回一个结果（可以理解为Spark中行动算子的概念）</p>
+<h3><span id="function-系列接口"><code>Function</code> 系列接口</span></h3>
+<p>Function 系列接口主要是提供类似java 中 method 的函数功能，接受入参返回一个结果，理论上可以使用Function接口完成其他四类functions的功能<br>
+主要包含</p>
+<ul>
+<li><code>Function&lt;T,R&gt;</code> 接受一个入参T, 返回一个结果 R</li>
+<li><code>BiFunction&lt;T,U,R&gt;</code> 接受两个入参 T &amp; U, 返回一个结果 R</li>
+<li><code>DoubleFunction&lt;R&gt;</code> 接受一个 double 类型入参，返回一个结果 R</li>
+<li><code>DoubleToIntFunction</code> 接受一个 double 类型入参， 返回一个 int 结果<br>
+以下接口不再赘述<br>
+<code>DoubleToLongFunction, IntFunction&lt;R&gt;, IntToDoubleFunction, IntToLongFunction, LongFunction&lt;R&gt;, LongToDoubleFunction, LongToIntFunction, ToDoubleBiFunction&lt;T,U&gt;, ToDoubleFunction&lt;T&gt;, ToIntBiFunction&lt;T,U&gt;, ToLongBiFunction&lt;T,U&gt;, ToLongFunction&lt;T&gt;</code></li>
+</ul>
+<p>所有Function系列接口，围绕</p>
+<ol>
+<li><code>compose()</code> 前置组合函数，可以理解为aop中的before()操作，会将compose的结果传递给apply()函数，多个compose()会按相对顺序顺序执行</li>
+<li><code>apply()</code> 核心函数，可以理解为aop中的被代理的对象，做核心处理逻辑，一个Function接口必须有这个函数，代表核心处理逻辑，apply()函数只能有一个，在compose()后，andThen()前执行</li>
+<li><code>andThen()</code>  后置组合函数，可以理解为aop的after()操作，接收apply()的结果。<br>
+三个方法展开，执行顺序是<code>compose()</code> =&gt; <code>apply()</code> =&gt; <code>andThen()</code></li>
+</ol>
+<h3><span id="predicate-系列接口"><code>Predicate</code> 系列接口</span></h3>
+<p><code>Predicate</code> 系列接口主要是提供断言功能，用来检查参数，验证结果等，接受一个入参返回一个布尔值<br>
+主要包含</p>
+<ul>
+<li><code>Predicate&lt;T&gt;</code> 接受一个参数 T，返回一个布尔值</li>
+<li><code>BiPredicate&lt;T,U&gt;</code> 接受两个参数 T &amp; U，返回一个布尔值<br>
+以下接口不再赘述<br>
+<code>DoublePredicate, IntPredicate, LongPredicate</code></li>
+</ul>
+<p>所有Predicate 系列接口，围绕</p>
+<ol>
+<li><code>test()</code> 核心函数，完成<code>Predicate</code>的核心断言逻辑</li>
+<li><code>and()</code> 功能等于 <code>&amp;&amp;</code> ，将两个<code>test()</code>函数进行 <code>&amp;&amp;</code> 操作</li>
+<li><code>or()</code> 功能等于 <code>||</code> ，将两个<code>test()</code>函数进行 <code>||</code> 操作</li>
+<li><code>negate()</code> 功能等于 <code>!</code>, 将<code>test()</code>取反 =&gt; <code>!test()</code><br>
+四个方法展开</li>
+</ol>
+<h3><span id="consumer-系列接口"><code>Consumer</code> 系列接口</span></h3>
+<p><code>Consumer</code> 系列接口主要是提供消费者功能，接受参数并消费，没有返回值<br>
+主要包含</p>
+<ul>
+<li><code>Consumer&lt;T&gt;</code> 接受一个参数 T, 没有返回值</li>
+<li><code>BiConsumer&lt;T,U&gt;</code> 接受两个参数 T &amp; U, 没有返回值<br>
+以下接口不再赘述<br>
+<code>DoubleConsumer, IntConsumer, LongConsumere, ObjDoubleConsumer&lt;T&gt;, ObjIntConsumer&lt;T&gt;, ObjLongConsumer&lt;T&gt;</code><br>
+所有<code>Comsumer</code> 系列接口，围绕</li>
+</ul>
+<ol>
+<li><code>accept()</code> 接受参数并消费</li>
+<li><code>andThen()</code> 这里的<code>andThen()</code>和<code>Function</code>的<code>andThen()</code>有所不同，<code>Function</code>的<code>andThen()</code>会将上一个结果传递给下一个，而<code>Consumer</code>的<code>andThen()</code>会将传入的参数多次消费。</li>
+</ol>
+<h3><span id="suppiler系列接口"><code>Suppiler</code>系列接口</span></h3>
+<p><code>Supplier</code> 系列接口主要是提供生产者功能，不接受参数，返回一个结果<br>
+主要包含</p>
+<ul>
+<li><code>Supplier&lt;T&gt;</code> 不接受参数，返回一个生产结果，<br>
+以下接口不再赘述<br>
+<code>BooleanSupplier, DoubleSupplier, IntSupplier, LongSupplier</code></li>
+</ul>
+<p>所有<code>Supplier</code>系列接口，围绕</p>
+<ol>
+<li><code>get()</code>/ <code>getAsBoolean()</code>等方法展开， 全部是提供一个返回结果</li>
+</ol>
+<h2><span id="代码演示">代码演示</span></h2>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FunctionDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 定义一个生产者方法，创建一个FunctionDemo对象</span></span><br><span class="line">        Supplier&lt;String&gt; builder = () -&gt; <span class="string">"里奥"</span>;</span><br><span class="line">        String named = builder.get();</span><br><span class="line">        System.out.println(<span class="string">"起名"</span> + named);</span><br><span class="line">        System.out.println(<span class="string">"=============================================================================="</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义一个函数，功能是 给定你名字什么，返回全名</span></span><br><span class="line">        Function&lt;String, String&gt; fullName = lastName -&gt; lastName + <span class="string">"梅西"</span>;</span><br><span class="line">        <span class="comment">// 给名字后面加个 ·</span></span><br><span class="line">        Function&lt;String, String&gt; printLastName = firstName -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"大家叫他小名： "</span> + firstName);</span><br><span class="line">            <span class="keyword">return</span> firstName + <span class="string">"·"</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">// 输出全名</span></span><br><span class="line">        Function&lt;String, String&gt; printFullName = name -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"我的全名是： "</span> + name);</span><br><span class="line">            <span class="keyword">return</span> name;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//多个andThen，compose,执行顺序：（排列时注意andThen和andThen之间的相对顺序， compose和compose之间的相对顺序）</span></span><br><span class="line">        <span class="comment">// 1. 多个compose按照顺序执行</span></span><br><span class="line">        <span class="comment">// 2. 再执行apply</span></span><br><span class="line">        <span class="comment">// 3. 最后andThen按照顺序执行</span></span><br><span class="line">        fullName.andThen(printFullName)</span><br><span class="line">                .compose(printLastName)</span><br><span class="line">                .andThen((n -&gt; &#123;</span><br><span class="line">                    System.out.println(n + <span class="string">"长到3岁了"</span>);</span><br><span class="line">                    <span class="keyword">return</span> n;</span><br><span class="line">                &#125;))</span><br><span class="line">                .andThen(n -&gt; &#123;</span><br><span class="line">                    System.out.println(n + <span class="string">"长到10岁了"</span>);</span><br><span class="line">                    <span class="keyword">return</span> n;</span><br><span class="line">                &#125;)</span><br><span class="line">                .apply(named);</span><br><span class="line">        System.out.println(<span class="string">"=============================================================================="</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义一个断言方法， 判断这个名字包含 liao</span></span><br><span class="line">        String liao = <span class="string">"里奥"</span>;</span><br><span class="line">        String messi = <span class="string">"梅西"</span>;</span><br><span class="line">        String testName = <span class="string">"球王梅西"</span>;</span><br><span class="line">        Predicate&lt;String&gt; liaoPredicate = name -&gt; name.contains(liao);</span><br><span class="line">        <span class="keyword">boolean</span> isLiao = liaoPredicate.test(testName);</span><br><span class="line">        <span class="comment">// 等于反过来的断言 == !Predicate.test(String string);</span></span><br><span class="line">        Predicate&lt;String&gt; negate = liaoPredicate.negate();</span><br><span class="line">        <span class="keyword">boolean</span> notLiao = negate.test(testName);</span><br><span class="line">        System.out.println(testName + <span class="string">"名字含有"</span> + liao + <span class="string">": test:"</span> + isLiao + <span class="string">"\t negate:"</span> + notLiao + <span class="string">"\t"</span>);</span><br><span class="line">        Predicate&lt;String&gt; isMessi = name -&gt; name.contains(messi);</span><br><span class="line">        <span class="comment">// and（）同时满足两个断言</span></span><br><span class="line">        <span class="keyword">boolean</span> isLiaoMessi = liaoPredicate.and(isMessi).test(testName);</span><br><span class="line">        System.out.println(testName + <span class="string">"名字既含有里奥也含有梅西: "</span> + isLiaoMessi);</span><br><span class="line">        <span class="comment">// or() 满足其中一个断言</span></span><br><span class="line">        <span class="keyword">boolean</span> isLiaoOrMessi = liaoPredicate.or(isMessi).test(testName);</span><br><span class="line">        System.out.println(testName + <span class="string">"名字含有里奥或者梅西: "</span> + isLiaoOrMessi);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"=============================================================================="</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 定义一个消费者方法，给定一个名字，输出问候语</span></span><br><span class="line">        Consumer&lt;String&gt; consumer = name -&gt; System.out.println(name + <span class="string">"高考报名"</span>);</span><br><span class="line">        Consumer&lt;String&gt; consumer1 = name -&gt; System.out.println(name + <span class="string">" 第一天考语文"</span>);</span><br><span class="line">        Consumer&lt;String&gt; consumer2 = name -&gt; System.out.println(name + <span class="string">" 第二天考数学"</span>);</span><br><span class="line">        Consumer&lt;String&gt; consumer3 = name -&gt; System.out.println(name + <span class="string">" 第三天考英语"</span>);</span><br><span class="line">        Consumer&lt;String&gt; consumer4 = name -&gt; System.out.println(name + <span class="string">" 第四天考理综"</span>);</span><br><span class="line">        <span class="comment">// 多个 andThen 本身执行是按照顺序的， 但是andThen一定会在accept后面执行, 下面 Function 多个 andThen， compose 同理，</span></span><br><span class="line">        consumer.andThen(consumer1).andThen(consumer2).andThen(consumer3).andThen(consumer4).accept(<span class="string">"里奥·梅西"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"=============================================================================="</span>);</span><br><span class="line">        BiFunction&lt;List&lt;Integer&gt;, Integer, Integer&gt; sumTotal = (summaries, integration) -&gt; &#123;</span><br><span class="line">            <span class="keyword">int</span> sum = summaries.stream().mapToInt(Integer::intValue).sum() + integration;</span><br><span class="line">            System.out.println(<span class="string">"语数外加理综一共总分："</span> + sum);</span><br><span class="line">            <span class="keyword">return</span> sum;</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        Integer finalTotal = sumTotal.andThen(total -&gt; &#123;</span><br><span class="line">            <span class="keyword">int</span> totalWithExtra = total + <span class="number">20</span>;</span><br><span class="line">            System.out.println(<span class="string">"获得世界级奖杯，额外加20分，当前总分："</span> + totalWithExtra);</span><br><span class="line">            <span class="keyword">return</span> totalWithExtra;</span><br><span class="line">        &#125;).apply(Arrays.asList(<span class="number">100</span>, <span class="number">130</span>, <span class="number">90</span>), <span class="number">180</span>);</span><br><span class="line">        System.out.println(<span class="string">"最终里奥·梅西高考成绩为："</span> + finalTotal);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/article/Function/result.png" title="输出结果">
+<h2><span id="总结">总结</span></h2>
+<p>function包可以大量用于可扩展的框架中，丰富框架的扩展性和延展性,让自定义处理函数更广泛的使用。<br>
+function包下的函数式接口很好的代替了闭包和匿名内部类，但是其使用起来并没有很丝滑。主要是不能很好的链式调用，会导致不容易理解和阅读。比如正常链式调用 compose().apply().andThen()，即使不看实现，我也知道这是一步一步在传递，但是实际使用时我们必须将apply()放在最后。<br>
+期待Java越来越好吧！</p>
+
+
+
+                <hr>
+                <!-- Pager -->
+                <ul class="pager">
+                    
+                    
+                        <li class="next">
+                            <a href="/article/secondary-development-learning/" data-toggle="tooltip" data-placement="top" title="关于二次开发开源项目的理解(redash)">Next Post &rarr;</a>
+                        </li>
+                    
+                </ul>
+
+                <br>
+
+                <!--打赏-->
+                
+                    <div class="reward">
+                        <div class="reward-button">赏 <span class="reward-code"> 
+                            <span class="alipay-code"> <img class="alipay-img" src="/img/pay_url/ali_payment.jpg"><b>支付宝打赏</b></span>
+                            <span class="wechat-code"> <img class="wechat-img" src="/img/pay_url/wechat_payment.jpg"><b>微信打赏</b> </span>
+                            </span></div>
+                        <p class="reward-notice">赞赏一下</p>
+                    </div>
+                
+                <!--打赏-->
+
+                <br>
+                <!--分享-->
+                
+                    <div class="social-share"  data-wechat-qrcode-helper="" align="center"></div>
+                    <!--  css & js -->
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/css/share.min.css">
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/social-share.js/1.0.16/js/social-share.min.js"></script>
+                
+                <!--分享-->
+                <br>
+
+                <!-- require APlayer -->
+                
+                <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+                <script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/meting@1.2/dist/Meting.min.js"></script>
+
+                <div class="aplayer"
+                    data-id="3150640120"
+                    data-server="netease"
+                    data-type="playlist"
+                    data-fixed="true" >
+                </div>
+                
+
+                <!-- disqus comment start -->
+                
+                <!-- disqus comment end -->
+
+                
+                    <!-- disqus 评论框 start -->
+                    <div class="comment">
+                        <div id="lv-container" data-id="city" data-uid="MTAyMC81MjQzNC8yODkxMg=="></div>
+                    </div>
+                    <!-- disqus 评论框 end -->
+                
+
+            </div>
+
+            <!-- Tabe of Content -->
+            <!-- Table of Contents -->
+
+  
+    <style>
+      span.toc-nav-number{
+        display: none
+      }
+    </style>
+  
+    
+      <aside id="sidebar">
+        <div id="toc" class="toc-article">
+        <strong class="toc-title">Contents</strong>
+        
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;java8-function-&#x5305;&#x4E2D;&#x7CFB;&#x5217;&#x63A5;&#x53E3;&#x7684;&#x7B80;&#x4ECB;">&#x5173;&#x4E8E;Java8 function &#x5305;&#x4E2D;&#x7CFB;&#x5217;&#x63A5;&#x53E3;&#x7684;&#x7B80;&#x4ECB;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="function-&#x7CFB;&#x5217;&#x63A5;&#x53E3;"><code>Function</code> &#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="predicate-&#x7CFB;&#x5217;&#x63A5;&#x53E3;"><code>Predicate</code> &#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="consumer-&#x7CFB;&#x5217;&#x63A5;&#x53E3;"><code>Consumer</code> &#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.4.</span> <span class="toc-nav-text"><span id="suppiler&#x7CFB;&#x5217;&#x63A5;&#x53E3;"><code>Suppiler</code>&#x7CFB;&#x5217;&#x63A5;&#x53E3;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="&#x4EE3;&#x7801;&#x6F14;&#x793A;">&#x4EE3;&#x7801;&#x6F14;&#x793A;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</span></span></a></li></ol>
+        
+        </div>
+      </aside>
+    
+
+
+            <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                       
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
+                        
+                          <a class="tag" href="/tags/#Function" title="Function">Function</a>
+                        
+                          <a class="tag" href="/tags/#Predicate" title="Predicate">Predicate</a>
+                        
+                          <a class="tag" href="/tags/#Consumer" title="Consumer">Consumer</a>
+                        
+                          <a class="tag" href="/tags/#Supplier" title="Supplier">Supplier</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+
+                    
+                        <li><a href="https://blog.csdn.net/You_are_my_Mr_Right" target="_blank"  rel="external nofollow">CSDN Blog 杨青波</a></li>
+                    
+                        <li><a href="https://www.tultuq.com" target="_blank"  rel="external nofollow">图里图气网</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+
+    <!-- 来必力City版公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+       (function(d, s) {
+           var j, e = d.getElementsByTagName(s)[0];
+
+           if (typeof LivereTower === 'function') { return; }
+
+           j = d.createElement(s);
+           j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+           j.async = true;
+
+           e.parentNode.insertBefore(j, e);
+       })(document, 'script');
+    </script>
+    <noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+    <!-- 来必力City版 公共JS代码 end -->
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("https://cdn.bootcss.com/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'hover',
+          placement: 'left',
+          icon: 'ℬ'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+<!-- chrome Firefox 中文锚点定位失效-->
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<!-- smooth scroll behavior polyfill  -->
+<script type="text/javascript" src="/js/smoothscroll.js"></script>
+<script>
+        $('#toc').on('click','a',function(a){
+             var isChrome = window.navigator.userAgent.indexOf("Chrome") !== -1;
+             console.log(window.navigator.userAgent,isChrome)
+                 if(isChrome) {
+                     console.log(a.currentTarget.outerHTML);
+                     console.log($(a.currentTarget).attr("href"));
+                    //跳转到指定锚点
+                     document.getElementById(a.target.innerText.toLowerCase()).scrollIntoView(true);
+                   // document.getElementById($(a.currentTarget).attr("href").replace("#","")).scrollIntoView({behavior: 'smooth' });
+                 }
+        })
+</script>
+
+
+    <!-- Footer -->
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/Liaomessi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 杨青波 2021 
+                    <br>
+                    Theme by <a href="https://github.com/huweihuang">huweihuang</a>
+                    <span style="display: inline-block; margin: 0 5px;">
+                        <i class="fa fa-heart"></i>
+                    </span> 
+                    re-Ported by <a href="https://github.com/Liaomessi">杨青波</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js"></script>
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/    
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://www.Liaomessi.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'ac03deda110440f0c7a9107f73d03f79';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+
+
+	<a id="rocket" href="#top" class=""></a>
+	<script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+    <script type="text/javascript" src="/js/toc.js?v=1.0.0" async=""></script>
+<!-- Image to hack wechat -->
+<img src="http://www.Liaomessi.github.io/img/icon_wechat.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
