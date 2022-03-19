@@ -134,13 +134,6 @@
 
                         
                         <li>
-                            <a href="/archive/">Archives</a>
-                        </li>
-                        
-                    
-
-                        
-                        <li>
                             <a href="/about/">About</a>
                         </li>
                         
@@ -149,6 +142,13 @@
                         
                         <li>
                             <a href="/tags/">Tags</a>
+                        </li>
+                        
+                    
+
+                        
+                        <li>
+                            <a href="/archive/">Archives</a>
                         </li>
                         
                     
@@ -208,6 +208,46 @@
             
                 <!-- Main Content -->
 
+
+<div class="post-preview">
+
+    <a href="/article/java-static/">
+        <h2 class="post-title">
+                                 
+            Java的static关键字在实践中深刻认知
+        </h2>
+        <h3 class="post-subtitle">
+            
+        </h3>
+        <div class="post-content-preview">
+            Java的static关键字的定义
+在Java中static是个修饰符,用于修饰类(而非对象)的成员方法，成员变量，被static关键字修饰的方法或者变量不需要依赖于对象来进行访问。
+static 修饰的属于类，对于同一类共享内存，而成员变量，普通方法属于对象，不共享内存。
+示例演示
+
+
+以下以最近我在实际生产中写的static关键字的乱用带来的bug演示:
+需求如下：我们做了一个多平台统一......
+        </div>
+    </a>
+    
+        <p class="post-meta" style="margin: 10px 0;">
+            Posted by 杨青波 on
+            2022-03-19
+        </p>
+        <div class="tags">
+            
+              <a href="/tags/#Java" title="Java">Java</a>
+            
+              <a href="/tags/#设计模式" title="设计模式">设计模式</a>
+            
+              <a href="/tags/#生产实践" title="生产实践">生产实践</a>
+            
+        </div>
+    
+
+</div>
+<hr>
 
 <div class="post-preview">
 
@@ -347,9 +387,9 @@ git的代理配置
         </p>
         <div class="tags">
             
-              <a href="/tags/#设计模式" title="设计模式">设计模式</a>
+              <a href="/tags/#Java" title="Java">Java</a>
             
-              <a href="/tags/#状态模式" title="状态模式">状态模式</a>
+              <a href="/tags/#设计模式" title="设计模式">设计模式</a>
             
               <a href="/tags/#生产实践" title="生产实践">生产实践</a>
             
@@ -555,49 +595,16 @@ script1234wget https://mirrors.bfsu.e......
 </div>
 <hr>
 
-<div class="post-preview">
-
-    <a href="/article/fieldsReflect/">
-        <h2 class="post-title">
-                                 
-            Java的getDeclaredField和getField的使用和区别,以及如何获取父类的私有字段
-        </h2>
-        <h3 class="post-subtitle">
-            
-        </h3>
-        <div class="post-content-preview">
-            getDeclaredFields 和 getFields 的区别
-
-getDeclaredFields方法仅对类本身的字段有效果，对于继承的父类的字段无效
-getFields方法只能获取类及其父类的公共字段
-获取父类的私有字段需要先使用getSuperClass获取父类Class，然后通过父类Class的getDeclaredFields方法获取父类的所有字段
-
-示例演示
-
-这是我们定义的......
-        </div>
-    </a>
-    
-        <p class="post-meta" style="margin: 10px 0;">
-            Posted by 杨青波 on
-            2019-10-30
-        </p>
-        <div class="tags">
-            
-              <a href="/tags/#Java" title="Java">Java</a>
-            
-        </div>
-    
-
-</div>
-<hr>
-
 
 
 <!-- Pager -->
 
 <ul class="pager">
     
+    
+        <li class="next">
+            <a href="/page/2/">Older Posts &rarr;</a>
+        </li>
     
 </ul>
 
@@ -629,7 +636,7 @@ getFields方法只能获取类及其父类的公共字段
     <div class="tags">
         
             
-            <a href="/tags/#Java" title="Java" rel="2">Java</a>
+            <a href="/tags/#Java" title="Java" rel="4">Java</a>
             
         
             
@@ -657,6 +664,34 @@ getFields方法只能获取类及其父类的公共字段
             
         
             
+            <a href="/tags/#git" title="git" rel="2">git</a>
+            
+        
+            
+            <a href="/tags/#windows" title="windows" rel="1">windows</a>
+            
+        
+            
+            <a href="/tags/#设计模式" title="设计模式" rel="2">设计模式</a>
+            
+        
+            
+            <a href="/tags/#生产实践" title="生产实践" rel="2">生产实践</a>
+            
+        
+            
+            <a href="/tags/#git进阶" title="git进阶" rel="1">git进阶</a>
+            
+        
+            
+            <a href="/tags/#git cherry-pick" title="git cherry-pick" rel="1">git cherry-pick</a>
+            
+        
+            
+            <a href="/tags/#nginx" title="nginx" rel="1">nginx</a>
+            
+        
+            
             <a href="/tags/#Jenkins" title="Jenkins" rel="1">Jenkins</a>
             
         
@@ -669,30 +704,6 @@ getFields方法只能获取类及其父类的公共字段
             
         
             
-            <a href="/tags/#git" title="git" rel="2">git</a>
-            
-        
-            
-            <a href="/tags/#windows" title="windows" rel="1">windows</a>
-            
-        
-            
-            <a href="/tags/#nginx" title="nginx" rel="1">nginx</a>
-            
-        
-            
-            <a href="/tags/#设计模式" title="设计模式" rel="1">设计模式</a>
-            
-        
-            
-            <a href="/tags/#状态模式" title="状态模式" rel="1">状态模式</a>
-            
-        
-            
-            <a href="/tags/#生产实践" title="生产实践" rel="1">生产实践</a>
-            
-        
-            
             <a href="/tags/#开源项目" title="开源项目" rel="1">开源项目</a>
             
         
@@ -702,14 +713,6 @@ getFields方法只能获取类及其父类的公共字段
         
             
             <a href="/tags/#源码阅读" title="源码阅读" rel="1">源码阅读</a>
-            
-        
-            
-            <a href="/tags/#git进阶" title="git进阶" rel="1">git进阶</a>
-            
-        
-            
-            <a href="/tags/#git cherry-pick" title="git cherry-pick" rel="1">git cherry-pick</a>
             
         
             
@@ -769,6 +772,10 @@ getFields方法只能获取类及其父类的公共字段
     <ul>
       
         <li>
+          <a href="/article/java-static/">Java的static关键字在实践中深刻认知</a>
+        </li>
+      
+        <li>
           <a href="/article/Function/">Java8 函数式接口Function大家族</a>
         </li>
       
@@ -782,10 +789,6 @@ getFields方法只能获取类及其父类的公共字段
       
         <li>
           <a href="/article/state-pattern/">状态模式在生产实践中的应用</a>
-        </li>
-      
-        <li>
-          <a href="/article/git-advanced-guide/">git的进阶指南(git cherry-pick)</a>
         </li>
       
     </ul>
@@ -810,7 +813,7 @@ getFields方法只能获取类及其父类的公共字段
         
     <h5>ARCHIVES</h5>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/03/">三月 2022</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/06/">六月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">四月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/03/">三月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/02/">二月 2021</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/01/">一月 2021</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">十二月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">八月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">1</span></li></ul>
     </div>
 
         <hr>
@@ -852,7 +855,7 @@ getFields方法只能获取类及其父类的公共字段
 
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; 杨青波 2021 
+                    Copyright &copy; 杨青波 2022 
                     <br>
                     Theme by <a href="https://github.com/huweihuang">huweihuang</a>
                     <span style="display: inline-block; margin: 0 5px;">

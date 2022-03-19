@@ -14,11 +14,11 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <title>
         
-          git的进阶指南(配置git代理) - 杨青波 | Blog
+          Java的static关键字在实践中深刻认知 - 杨青波 | Blog
         
     </title>
 
-    <link rel="canonical" href="http://www.Liaomessi.github.io/article/git-proxy/">
+    <link rel="canonical" href="http://www.Liaomessi.github.io/article/java-static/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -88,16 +88,18 @@
                     <div class="post-heading">
                         <div class="tags">
                             
-                              <a class="tag" href="/tags/#git" title="git">git</a>
+                              <a class="tag" href="/tags/#Java" title="Java">Java</a>
                             
-                              <a class="tag" href="/tags/#windows" title="windows">windows</a>
+                              <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                            
+                              <a class="tag" href="/tags/#生产实践" title="生产实践">生产实践</a>
                             
                         </div>
-                        <h1>git的进阶指南(配置git代理)</h1>
+                        <h1>Java的static关键字在实践中深刻认知</h1>
                         <h2 class="subheading"></h2>
                         <span class="meta">
                             Posted by 杨青波 on
-                            2021-04-07
+                            2022-03-19
                         </span>
                     </div>
                 
@@ -214,30 +216,46 @@
                 col-md-10 col-md-offset-1
                 post-container">
 
-                <h1><span id="windows下的git代理配置">Windows下的git代理配置</span></h1>
-<p>由于近些年国内访问github速度慢且很不稳定，所以作为一名合格的程序员你一定需要一个科学梯子，这是本次教程的一个前提。</p>
-<h2><span id="关于github">关于github</span></h2>
-<p>相信只要你有一个梯子你就可以给访问github加速，但是对于git clone、 push、 pull 很多人表示龟速，以下从两个角度介绍一下Windows下如何给git 命令加速</p>
-<h2><span id="git的代理配置">git的代理配置</span></h2>
-<p>对于git clone我们常用的有两种方式可以clone下项目，https方式和ssh方式，先简单介绍一下这两种方式的不同处：</p>
+                <h2><span id="java的static关键字的定义">Java的static关键字的定义</span></h2>
+<p>在Java中static是个修饰符,用于<b>修饰类(而非对象)</b>的成员方法，成员变量，被static关键字修饰的方法或者变量不需要依赖于对象来进行访问。<br>
+static 修饰的属于类，对于同一类<b>共享内存</b>，而成员变量，普通方法属于对象，<b>不共享内存</b>。</p>
+<h2><span id="示例演示">示例演示</span></h2>
 <ol>
-<li>https方式使用用户名／密码授权，优点是可用性强，方便，缺点是速度慢，每次推送都需要输入口令。</li>
-<li>ssh方式需要将publish key上传到github的设置中，通过公私钥来验证用户获取授权建立通道，优点是速度快安全性高，缺点是需要上传公钥到github上</li>
+<li>
+<p>以下以最近我在实际生产中写的static关键字的乱用带来的bug演示:<br>
+需求如下：我们做了一个<b>多平台统一</b>的管理系统，现在有一个功能我们需要根据给定时间生成计划，但是目前我们只有其中一个平台支持该功能，但是我们要让程序有足够的扩展性，方便后续其他平台的对接。</p>
+</li>
+<li>
+<p>需求分析（内心独白）：<br>
+既然是多平台的功能，我们大概率需要用到策略模式，但是现在又只有一个平台支持这个功能，所以简单点了就整个内部的策略模式一锅端了，后面又其他平台进来了我们再把策略接口单独拎出来。</p>
+</li>
+<li>
+<p>开始写代码,以下可以看到我定义了一个用于计算plan的聚合类，提供了一个用于计算不同合作方的计划。</p>
+</li>
 </ol>
-<h3><span id="关于使用https方式clone的配置">关于使用https方式clone的配置</span></h3>
-<p>https方式的clone配置需要在git config中配置全局代理，需要注意的<code>https://127.0.0.1:1080</code>代表你的梯子监听的协议和端口。</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global http.https://github.com.proxy https://127.0.0.1:1080</span><br><span class="line">git config --global https.https://github.com.proxy https://127.0.0.1:1080</span><br></pre></td></tr></table></figure>
-<p>我使用的这个梯子的协议和端口如下，所以下面的配置我将<code>https://127.0.0.1:1080</code>换成<code>socks://127.0.0.1:10808</code>,你需要根据你的梯子配置对即可</p>
-
-<p>有了以上配置，你就可以使用https方式舒服的git clone了，但是对于ssh方式的git clone我们还需要额外的配置。</p>
-<h3><span id="关于使用ssh方式clone的配置">关于使用ssh方式clone的配置</span></h3>
-<p>ssh方式的clone配置比较简单，你只需要在本用户的.ssh目录下（和你id_rsa.pub同级目录）创建一个config文件(不要有文件扩展名)，将代理信息配置进去即可，配置如下：</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">  User git</span><br><span class="line">  Port 22</span><br><span class="line">  Hostname github.com</span><br><span class="line">  IdentityFile "C:\Users\MRqby\.ssh\id_rsa"</span><br><span class="line">  ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p</span><br><span class="line">  TCPKeepAlive yes</span><br><span class="line"></span><br><span class="line">Host ssh.github.com</span><br><span class="line">  User git</span><br><span class="line">  Port 443</span><br><span class="line">  Hostname ssh.github.com</span><br><span class="line">  IdentityFile "C:\Users\MRqby\.ssh\id_rsa"</span><br><span class="line">  ProxyCommand connect -S 127.0.0.1:1080 -a none %h %p</span><br><span class="line">  TCPKeepAlive yes</span><br></pre></td></tr></table></figure>
-<p>使用mac和linux的同学应该看着很熟悉了，这个<s>打家劫舍</s>（配置跳板机啥的）必备良药呀！<br>
-这里再插一嘴，Stack Overflow等上面有些人告诉你了直接在git config配置ssl verify设为false，这显然不是个好解决方法啊，慎用。</p>
-<h2><span id="结语">结语</span></h2>
-<p>以上为Windows下配置git clone的代理全部内容，其实mac/linux上配置也是一样的，只是目录有些不同而已。<br>
-磨刀不误砍柴工，这些基础的配置是为了让我们对技术更加热情，更丝滑的使用 <s>gayhub</s> github。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@AllArgsConstructor</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UnifiedPlanAggregateRoot</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 计算计划的基准时间</span></span><br><span class="line">    <span class="keyword">private</span> LocalDate basedDate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 各个合作方的策略map</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Map&lt;String, PartnerPlanPolicy&gt; partnerPoliciesMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 初始化各个合作方的策略</span></span><br><span class="line">    &#123;</span><br><span class="line">        partnerPoliciesMap.put(<span class="string">"Google"</span>, <span class="keyword">new</span> GooglePlanPolicy());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据给定的合作方，调用对应的策略进行计算计划</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;LocalDate&gt; <span class="title">calculatePlan</span><span class="params">(String partner)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> partnerPoliciesMap.get(partner).calculatePlan();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 这里我定义一个内部的policy接口，然后实现了一个google的policy，以后可能会有bing，facebook等等的policy</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="class"><span class="keyword">interface</span> <span class="title">PartnerPlanPolicy</span> </span>&#123;</span><br><span class="line">        <span class="function">List&lt;LocalDate&gt; <span class="title">calculatePlan</span><span class="params">()</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * google的一个计算计划策略实现,我们简单返回一个后面一个星期的日期用来测试</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">GooglePlanPolicy</span> <span class="keyword">implements</span> <span class="title">PartnerPlanPolicy</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> GOOGLE_PLAN_LIMITATION = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@Override</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> List&lt;LocalDate&gt; <span class="title">calculatePlan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            List&lt;LocalDate&gt; plans = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; GOOGLE_PLAN_LIMITATION; i++) &#123;</span><br><span class="line">                plans.add(basedDate.plusDays(<span class="number">1</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> plans;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>单元测试如下，也如预期顺利通过。</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calculatePlan</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    UnifiedPlanAggregateRoot planAggregateRoot = <span class="keyword">new</span> UnifiedPlanAggregateRoot(LocalDate.of(<span class="number">2022</span>, <span class="number">03</span>, <span class="number">15</span>));</span><br><span class="line">    List&lt;LocalDate&gt; googlePlans = planAggregateRoot.calculatePlan(<span class="string">"Google"</span>);</span><br><span class="line">    Assert.assertEquals(<span class="number">7</span>, googlePlans.size());</span><br><span class="line">    googlePlans.forEach(plan -&gt; Assert.assertTrue(plan.isBefore(LocalDate.of(<span class="number">2022</span>, <span class="number">03</span>, <span class="number">23</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2><span id="分析问题">分析问题</span></h2>
+<p>这里我们定义的这个UnifiedPlanAggregateRoot中有一个静态的partnerPoliciesMap，有一段代码块，还有一个成员变量basedDate。</p>
+<ol>
+<li>当你第一次创建这个对象时，首先会初始化这个静态的partnerPoliciesMap</li>
+<li>然后执行了这个代码块，给这个map添加了K,V</li>
+<li>最后执行构造方法初始化了成员变量basedDate</li>
+<li>当你第二次创建这个对象时，静态的partnerPoliciesMap已经初始化过了，不会再运行，但是代码块是非静态的还是会再执行一遍，这会导致一个问题，它重新创建了一次policy对象，然而policy对象并非是个无状态的服务，它内部使用了一个basedDate的成员变量，也就是说现在这个静态的partnerPoliciesMap中的policy对象时是由第二次创建对象时创建的，这时如果第一次创建的UnifiedPlanAggregateRoot执行calculatePlan方法的话，其调用的policy是第二次对象创建的，并引用了第二个UnifiedPlanAggregateRoot的成员变量，导致Plan的基准日期并不是这个对象自己的基准时间，得不到预期值</li>
+</ol>
+<h2><span id="验证分析">验证分析</span></h2>
+<p>这里我先初始化两个UnifiedPlanAggregateRoot对象后再调用calculatePlan方法，Assert将会报错<code>googlePlans.forEach(plan -&gt; Assert.assertTrue(plan.isBefore(LocalDate.of(2022, 03, 23))));</code>将会抛异常</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">calculatePlanWithError</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    UnifiedPlanAggregateRoot planAggregateRoot = <span class="keyword">new</span> UnifiedPlanAggregateRoot(LocalDate.of(<span class="number">2022</span>, <span class="number">03</span>, <span class="number">15</span>));</span><br><span class="line">    UnifiedPlanAggregateRoot planAggregateRoot2 = <span class="keyword">new</span> UnifiedPlanAggregateRoot(LocalDate.of(<span class="number">2022</span>, <span class="number">04</span>, <span class="number">15</span>));</span><br><span class="line">    List&lt;LocalDate&gt; googlePlans = planAggregateRoot.calculatePlan(<span class="string">"Google"</span>);</span><br><span class="line">    Assert.assertEquals(<span class="number">7</span>, googlePlans.size());</span><br><span class="line">    googlePlans.forEach(plan -&gt; Assert.assertTrue(plan.isBefore(LocalDate.of(<span class="number">2022</span>, <span class="number">03</span>, <span class="number">23</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/article/java-static/assert_console.png" title="单测报错信息">
+<h2><span id="总结">总结</span></h2>
+<ol>
+<li>static是属于类的，而成员变量是属于对象的，属于类的共享内存，只会初始化一次，属于对象的每次都会初始化。</li>
+<li>永远不要再非静态的代码块中修改静态变量</li>
+<li>对于无状态的服务，不要引用外部有状态的变量。以以上的例子来说就是policy内部不要使用外部的basedDate，应该由调用方传入该参数。</li>
+</ol>
 
 
 
@@ -245,13 +263,9 @@
                 <!-- Pager -->
                 <ul class="pager">
                     
-                        <li class="previous">
-                            <a href="/article/secondary-development-learning/" data-toggle="tooltip" data-placement="top" title="关于二次开发开源项目的理解(redash)">&larr; Previous Post</a>
-                        </li>
-                    
                     
                         <li class="next">
-                            <a href="/article/state-pattern/" data-toggle="tooltip" data-placement="top" title="状态模式在生产实践中的应用">Next Post &rarr;</a>
+                            <a href="/article/Function/" data-toggle="tooltip" data-placement="top" title="Java8 函数式接口Function大家族">Next Post &rarr;</a>
                         </li>
                     
                 </ul>
@@ -324,7 +338,7 @@
         <div id="toc" class="toc-article">
         <strong class="toc-title">Contents</strong>
         
-          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-1"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;">Windows&#x4E0B;&#x7684;git&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;github">&#x5173;&#x4E8E;github</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.</span> <span class="toc-nav-text"><span id="git&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;">git&#x7684;&#x4EE3;&#x7406;&#x914D;&#x7F6E;</span></span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.1.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;https&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.2.2.</span> <span class="toc-nav-text"><span id="&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;">&#x5173;&#x4E8E;&#x4F7F;&#x7528;ssh&#x65B9;&#x5F0F;clone&#x7684;&#x914D;&#x7F6E;</span></span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.3.</span> <span class="toc-nav-text"><span id="&#x7ED3;&#x8BED;">&#x7ED3;&#x8BED;</span></span></a></li></ol></li></ol>
+          <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">1.</span> <span class="toc-nav-text"><span id="java&#x7684;static&#x5173;&#x952E;&#x5B57;&#x7684;&#x5B9A;&#x4E49;">Java&#x7684;static&#x5173;&#x952E;&#x5B57;&#x7684;&#x5B9A;&#x4E49;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">2.</span> <span class="toc-nav-text"><span id="&#x793A;&#x4F8B;&#x6F14;&#x793A;">&#x793A;&#x4F8B;&#x6F14;&#x793A;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">3.</span> <span class="toc-nav-text"><span id="&#x5206;&#x6790;&#x95EE;&#x9898;">&#x5206;&#x6790;&#x95EE;&#x9898;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">4.</span> <span class="toc-nav-text"><span id="&#x9A8C;&#x8BC1;&#x5206;&#x6790;">&#x9A8C;&#x8BC1;&#x5206;&#x6790;</span></span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#undefined"><span class="toc-nav-number">5.</span> <span class="toc-nav-text"><span id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</span></span></a></li></ol>
         
         </div>
       </aside>
@@ -344,9 +358,11 @@
                     <h5><a href="/tags/">FEATURED TAGS</a></h5>
                     <div class="tags">
                        
-                          <a class="tag" href="/tags/#git" title="git">git</a>
+                          <a class="tag" href="/tags/#Java" title="Java">Java</a>
                         
-                          <a class="tag" href="/tags/#windows" title="windows">windows</a>
+                          <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        
+                          <a class="tag" href="/tags/#生产实践" title="生产实践">生产实践</a>
                         
                     </div>
                 </section>
